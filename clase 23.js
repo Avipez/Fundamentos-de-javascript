@@ -12,4 +12,4 @@ function obtenerPersonaje(id){
 }
 
 
-obtenerPersonaje(1)
+obtenerPersonaje(2)
