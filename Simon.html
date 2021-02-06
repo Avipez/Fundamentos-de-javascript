@@ -3,11 +3,14 @@
 
 <head>
   <meta charset="utf-8">
+  <link rel="icon" type="image/png " href="./simon.jpg">
   <title>Simon Dice</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
   <style>
     body {
       margin: 0;
-      background: #dedede;
+      background-color: #1B2127 ;
+      color: white;
       display: flex;
       align-items: center;
       height: 100vh;
@@ -69,6 +72,14 @@
       background: #badc58;
     }
 
+    .btn-center{
+      width: 100vw;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     .btn-start {
       width: 400px;
       height: 100px;
@@ -76,8 +87,8 @@
       color: #2c3e50;
       font-size: 2.5rem;
       position: absolute;
-      top: calc(50% - 50px);
-      left: calc(50% - 200px);
+      /* top: calc(50% - 50px);
+      left: calc(50% - 200px); */
     }
 
     .hide {
@@ -86,6 +97,33 @@
 
     * {
       font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .reglas{
+      width: 100vw;
+      position: absolute;
+      top: 30px;
+      font-size: 20px;
+      text-align: center;
+      justify-content: center;
+    }
+    
+    .display{
+      display: flex;
+    }
+
+    .reglas p{
+      width: 50vw;
+    }
+
+    @media screen and (max-width: 766px){
+
+      .reglas{
+        font-size: 15px;
+      }
+      .btn-start{
+        width: 300px;
+      }
     }
   </style>
 </head>
@@ -96,7 +134,13 @@
     <div id="violeta" class="color violeta right" data-color="violeta"></div>
     <div id="naranja" class="color naranja left" data-color="naranja"></div>
     <div id="verde" class="color verde right" data-color="verde"></div>
+  </div>
+  <div class="btn-center">
     <button id="btnEmpezar" class="btn-start" onclick="empezarJuego()">Empezar a jugar!</button>
+  </div>
+  <div id="reglas" class="reglas display">
+    <p>Observa que colores se encienden y repite el patron hasta llegar al final del juego. Para ganar debes repetir el patron 10 veces
+    </p>
   </div>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
@@ -104,6 +148,8 @@
     const violeta = document.getElementById('violeta')
     const naranja = document.getElementById('naranja')
     const verde = document.getElementById('verde')
+    const btnEmpezar = document.getElementById('btnEmpezar')
+    const reglas = document.getElementById("reglas")
 
     function empezarJuego() {
       window.juego = new Juego()
@@ -111,7 +157,6 @@
 
     const ULTIMO_NIVEL = 10
 
-    const btnEmpezar = document.getElementById('btnEmpezar')
 
     class Juego {
       constructor() {
@@ -125,12 +170,23 @@
         this.siguienteNivel = this.siguienteNivel.bind(this)
         this.elegirColor = this.elegirColor.bind(this)
         this.toggleBtnEmpezar()
+        this.removerReglas()
         this.nivel = 1
         this.colores = {
           celeste,
           violeta,
           naranja,
           verde
+        }
+      }
+
+      removerReglas(){
+        if(reglas.classList.contains("display")){
+          reglas.classList.remove("display")
+          reglas.classList.add("hide")
+        } else {
+          reglas.classList.add("display")
+          reglas.classList.remove("hide")
         }
       }
 
